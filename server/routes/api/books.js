@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new book
-router.post('/', async (req, res) => {
+router.post('/new', async (req, res) => {
 //   const book = await Book.create({ ...req.body, userId: req.user.id });
 // TODO: Fix Book.create syntax
 console.log(req.body)
