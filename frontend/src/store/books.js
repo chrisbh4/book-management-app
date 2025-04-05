@@ -1,4 +1,3 @@
-import { create } from 'domain'
 import { csrfFetch } from './csrf'
 
 export const LOAD_BOOKS = 'BOOKS/LOAD_BOOKS'
@@ -34,8 +33,8 @@ const deleteBook = (bookId) => ({
 
 export const fetchAllBooks = () => async (dispatch) => {
   const res = await csrfFetch('/api/books')
-  const data = await res.json()
   if (res.ok) {
+    const data = await res.json()
     dispatch(loadBook(data))
     return data
   }
@@ -51,6 +50,7 @@ export const fetchBookById = (bookId) => async (dispatch) => {
 }
 
 // export const fetchCreateBookWithImage = (payload) => async (dispatch) => {
+
 //   const { title, author, genre, imageFile, userId } = payload
 //   const formData = new FormData()
 //   // used for aws
@@ -78,6 +78,7 @@ export const fetchBookById = (bookId) => async (dispatch) => {
 //   }
 // }
 
+
 // With No Image
 export const fetchCreateBook = (title, author, genre, userId) => async (dispatch) => {
     const res = await csrfFetch('/api/books/new', {
@@ -96,7 +97,7 @@ export const fetchCreateBook = (title, author, genre, userId) => async (dispatch
   }
 
   export const fetchEditBookById = (title, author, genre, userId, bookId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/boooks/${bookId}`, {
+    const res = await csrfFetch(`/api/books/${bookId}`, {
       method: 'PUT',
       header: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, author, genre, userId })
@@ -112,33 +113,33 @@ export const fetchCreateBook = (title, author, genre, userId) => async (dispatch
   }
 
 export const fetchDeleteBookById = (bookId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/shoes/${bookId}`, {
+  const res = await csrfFetch(`/api/books/${bookId}`, {
     method: 'DELETE'
   })
   if (res.ok) {
     const data = await res.json()
     dispatch(deleteBook(data))
+    await fetchAllBooks()
     return data
   }
 }
 
 const initialState = {}
 function reducer (state = initialState, action) {
-  const newState = { ...state }
   switch (action.type) {
     case LOAD_BOOKS:
       return { ...action.books }
     case LOAD_BOOK:
       return { ...action.book }
     case CREATE_BOOK:
-      newState[action.book.id] = action.book
-      return newState
-    case EDIT_BOOK:
       state[action.book.id] = action.book
       return state
+    case EDIT_BOOK:
+      state[action.bookId] = action.book
+      return state
     case DELETE_BOOK:
-      delete newState[action.bookId]
-      return newState
+      delete state[action.bookId]
+      return state
     default:
       return state
   }
