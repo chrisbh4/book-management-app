@@ -8,6 +8,7 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import LandingPage from './components/landingPage';
 import Dashboard from './components/dashboard';
+import App from './App';
 
 
 const store = configureStore();
@@ -25,8 +26,9 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="*" element={<LandingPage />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="app" element={<App />} />
+          <Route path="*" element={<LandingPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
