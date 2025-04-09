@@ -9,6 +9,10 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 import LandingPage from './components/landingPage';
 import Dashboard from './components/dashboard';
 import App from './App';
+import BookDetail from './components/bookDetailsPage';
+import BookForm from './components/formUI';
+import SignupForm from './components/signUpForm';
+import LoginForm from './components/loginForm';
 
 
 const store = configureStore();
@@ -29,6 +33,12 @@ root.render(
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="app" element={<App />} />
           <Route path="*" element={<LandingPage />} />
+          <Route path="details" element={<BookDetail />} />
+          <Route path ="form" element={<BookForm />} />
+          <Route path="form/:id" element={<BookForm />} />
+          <Route path="form/:id/edit" element={<BookForm />} />
+          <Route path="login" element={<LoginForm />} />
+          <Route path="signup" element={<SignupForm />} />
         </Routes>
       </BrowserRouter>
     </Provider>
