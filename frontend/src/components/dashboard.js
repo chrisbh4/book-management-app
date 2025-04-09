@@ -1,10 +1,10 @@
-import './App.css';
+import '../App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchAllBooks, fetchCreateBook, fetchEditBookById, fetchDeleteBookById } from './store/books';
+import { fetchAllBooks, fetchCreateBook, fetchEditBookById, fetchDeleteBookById } from '../store/books';
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 
-function App() {
+function Dashboard() {
 
   const dispatch = useDispatch();
 
@@ -197,4 +197,4 @@ const handleCreate = async (title, author, genre, id) => {
   );
 }
 
-export default App;
+export default Dashboard;
